@@ -88,24 +88,44 @@
         transition: all 0.5s ease-out;
       }
       #logo-container.scrolled {
-        position: fixed;
-        top: 0.5rem;
-        left: 1rem;
-        width: auto;
         height: 2.5rem;
-        z-index: 60;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: auto;
+        flex-shrink: 0;
+        margin: auto 0; /* Center vertically within the header */
       }
       #logo-container.scrolled #logo-svg {
         height: 100%;
         width: auto;
+        max-width: none;
+        flex-shrink: 0;
       }
-      #logo-container.scrolled #logo-text {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-left: 0.5rem;
+      /* Styles for when the header is over a dark background */
+      #sticky-header.inverted #logo-svg path {
+        fill: var(--background-light); /* Invert logo color */
       }
-      #sticky-header.scrolled #header-content {
-        justify-content: flex-end;
+      #sticky-header.inverted #header-cta {
+        color: var(--background-light);
+        border-color: var(--background-light); /* Make border visible */
+      }
+      #sticky-header.inverted #header-cta:hover {
+        background-color: rgba(249, 247, 255, 0.1);
+      }
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(calc(-100% - var(--gap, 1rem)));
+        }
+      }
+      .animate-marquee {
+        animation: marquee var(--duration, 40s) linear infinite;
+      }
+      .group:hover .animate-marquee {
+        animation-play-state: paused;
       }
     </style>
     <script>
@@ -210,20 +230,20 @@
   >
     <div class="relative w-full overflow-x-hidden">
       <header
-        class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 hidden"
+        class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 hidden h-20 liquid-glass px-4 sm:px-6 lg:px-8 flex items-center"
         id="sticky-header"
       >
-        <div
-          class="liquid-glass p-4 flex justify-between items-center"
-          id="header-content"
-        >
-          <a
-            class="inline-flex items-center justify-center rounded-md px-6 py-3 text-base font-bold text-primary-500 transition hover:bg-primary-500/10 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:text-primary-400 dark:hover:bg-primary-400/10 dark:focus:ring-primary-800"
-            href="#"
-          >
-            Start for Free
-          </a>
+        <!-- The logo container will be inserted here by JS -->
+        <div class="flex-1 flex items-center justify-start h-full">
+          <!-- Logo will be inserted here -->
         </div>
+        <a
+          id="header-cta"
+          class="inline-flex items-center justify-center rounded-md px-6 py-3 text-base font-bold text-primary-500 transition hover:bg-primary-500/10 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:text-primary-400 dark:hover:bg-primary-400/10 dark:focus:ring-primary-800 border-2 border-transparent whitespace-nowrap flex-shrink-0"
+          href="#"
+        >
+          Start for Free
+        </a>
       </header>
       <main class="flex flex-col">
         <section
@@ -248,7 +268,7 @@
               id="logo-container"
             >
               <svg
-                class="h-16 text-primary-500 dark:text-primary-400"
+                class="h-24 text-primary-500 dark:text-primary-400"
                 id="logo-svg"
                 width="auto"
                 height="auto"
@@ -337,7 +357,7 @@
               </p>
             </div>
             <a
-              class="inline-flex items-center justify-center rounded bg-primary-500 px-8 py-4 text-lg font-bold text-white transition hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-800 shadow-lg shadow-primary-500/30"
+              class="inline-flex items-center justify-center rounded bg-primary-500 px-8 py-4 text-lg font-bold text-white transition hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-800 shadow-lg shadow-primary-500/30 whitespace-nowrap"
               href="#"
               id="main-cta"
             >
@@ -365,7 +385,132 @@
             </div>
           </div>
         </section>
-        <section class="py-24 sm:py-32 bg-background-dark text-white">
+        <section class="py-16 sm:py-20">
+          <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3
+              class="text-center text-xs font-semibold uppercase tracking-[0.3em] text-slate-500"
+            >
+              Trusted by Leading Teams
+            </h3>
+            <div
+              class="group relative mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white/60 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-background-dark/60"
+              style="--gap: 3rem; --duration: 35s"
+            >
+              <div
+                class="flex min-w-full shrink-0 items-center justify-around gap-[var(--gap)] animate-marquee"
+              >
+                <img
+                  alt="Google"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Google.svg"
+                />
+                <img
+                  alt="Microsoft"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Microsoft.svg"
+                />
+                <img
+                  alt="Amazon"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Amazon.svg"
+                />
+                <img
+                  alt="Netflix"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Netflix.svg"
+                />
+                <img
+                  alt="YouTube"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/YouTube.svg"
+                />
+                <img
+                  alt="Instagram"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Instagram.svg"
+                />
+                <img
+                  alt="Uber"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Uber.svg"
+                />
+                <img
+                  alt="Spotify"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Spotify.svg"
+                />
+              </div>
+              <div
+                aria-hidden="true"
+                class="flex min-w-full shrink-0 items-center justify-around gap-[var(--gap)] animate-marquee"
+              >
+                <img
+                  alt="Google"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Google.svg"
+                />
+                <img
+                  alt="Microsoft"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Microsoft.svg"
+                />
+                <img
+                  alt="Amazon"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Amazon.svg"
+                />
+                <img
+                  alt="Netflix"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Netflix.svg"
+                />
+                <img
+                  alt="YouTube"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/YouTube.svg"
+                />
+                <img
+                  alt="Instagram"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Instagram.svg"
+                />
+                <img
+                  alt="Uber"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Uber.svg"
+                />
+                <img
+                  alt="Spotify"
+                  class="h-8 w-auto grayscale opacity-40 transition hover:opacity-70 dark:invert"
+                  loading="lazy"
+                  src="https://cdn.magicui.design/companies/Spotify.svg"
+                />
+              </div>
+              <div
+                class="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white via-white/60 dark:from-background-dark dark:via-background-dark/60"
+              ></div>
+              <div
+                class="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white via-white/60 dark:from-background-dark dark:via-background-dark/60"
+              ></div>
+            </div>
+          </div>
+        </section>
+        <section class="py-24 sm:py-32 bg-background-dark text-white dark-section">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid gap-16 lg:grid-cols-2 lg:gap-24 items-center">
               <div class="text-center lg:text-left">
@@ -603,7 +748,7 @@
           </div>
         </section>
       </main>
-      <footer class="bg-background-dark text-slate-400">
+      <footer class="bg-background-dark text-slate-400 dark-section">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
           <div class="flex flex-col items-center gap-8">
             <div class="flex justify-center space-x-6">
@@ -661,33 +806,69 @@
         const stickyHeader = document.getElementById("sticky-header");
         const logoContainer = document.getElementById("logo-container");
         const mainCta = document.getElementById("main-cta");
-        const headerContent = document.getElementById("header-content");
+        const originalLogoParent = logoContainer.parentElement;
+        const darkSections = document.querySelectorAll(".dark-section");
+
+        function checkHeaderContrast() {
+          if (stickyHeader.classList.contains("hidden")) {
+            stickyHeader.classList.remove("inverted");
+            return;
+          }
+          const headerRect = stickyHeader.getBoundingClientRect();
+          let isOverDark = false;
+          darkSections.forEach((section) => {
+            const sectionRect = section.getBoundingClientRect();
+            if (
+              sectionRect.top < headerRect.bottom &&
+              sectionRect.bottom > headerRect.top
+            ) {
+              isOverDark = true;
+            }
+          });
+          if (isOverDark) {
+            stickyHeader.classList.add("inverted");
+          } else {
+            stickyHeader.classList.remove("inverted");
+          }
+        }
+
         const observer = new IntersectionObserver(
           ([e]) => {
             if (!e.isIntersecting) {
               stickyHeader.classList.remove("hidden");
               stickyHeader.classList.add("sticky-header", "scrolled");
               logoContainer.classList.add("scrolled");
-              headerContent.prepend(logoContainer);
+              // Insert logo into the left container
+              const leftContainer = stickyHeader.querySelector('.flex-1');
+              leftContainer.appendChild(logoContainer);
             } else {
               stickyHeader.classList.add("hidden");
-              stickyHeader.classList.remove("sticky-header", "scrolled");
+              stickyHeader.classList.remove(
+                "sticky-header",
+                "scrolled",
+                "inverted"
+              );
               logoContainer.classList.remove("scrolled");
-              const heroSection = document.querySelector("section");
-              const h1Element = heroSection.querySelector("h1");
-              h1Element.parentElement.parentElement.insertBefore(
+              originalLogoParent.insertBefore(
                 logoContainer,
-                h1Element.parentElement.parentElement.firstChild
+                originalLogoParent.firstChild
               );
             }
+            checkHeaderContrast();
           },
           {
             threshold: [0],
           }
         );
+
         if (mainCta) {
           observer.observe(mainCta);
         }
+
+        window.addEventListener("scroll", checkHeaderContrast, {
+          passive: true,
+        });
+        window.addEventListener("resize", checkHeaderContrast);
       });
     </script>
   </body>
